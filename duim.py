@@ -9,9 +9,9 @@ import argparse
 '''
 OPS435 Assignment 2 - Summer 2021
 Program: duim.py 
-Author: kcdavda1
+Author: Kishen Davda
 The python code in this file (duim.py) is original work written by
-kcdavda1. No code in this file is copied from any other source 
+Kishen Davda. No code in this file is copied from any other source 
 except those provided by the course instructor, including any person, 
 textbook, or on-line resource. I have not shared this python script 
 with anyone or anything except for submission for grading.  
@@ -57,6 +57,14 @@ def percent_to_graph(percent, total_chars):
 
 def call_du_sub(location):
     "use subprocess to call `du -d 1 + location`, rtrn raw list"
+
+    p = subprocess.Popen(['du -d 1 ' + location], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    output = p.communicate()
+    stdout = output[0].decode('utf-8').strip()
+    outputlist = list(stdout)
+
+    return outputlist
+
    
 
 def create_dir_dict(raw_dat):
