@@ -9,18 +9,17 @@ import argparse
 '''
 OPS435 Assignment 2 - Summer 2021
 Program: duim.py 
-Author: "Student Name"
+Author: kcdavda1
 The python code in this file (duim.py) is original work written by
-"Student Name". No code in this file is copied from any other source 
+kcdavda1. No code in this file is copied from any other source 
 except those provided by the course instructor, including any person, 
 textbook, or on-line resource. I have not shared this python script 
 with anyone or anything except for submission for grading.  
 I understand that the Academic Honesty Policy will be enforced and 
 violators will be reported and appropriate action will be taken.
 
-Description: <Enter your documentation here>
 
-Date: 
+Date: July 27, 2021
 '''
 
 def parse_command_args():
