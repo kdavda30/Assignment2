@@ -35,7 +35,26 @@ def parse_command_args():
 
 def percent_to_graph(percent, total_chars):
     "returns a string: eg. '##  ' for 50 if total_chars == 4"
-    pass
+    graph = percent/100
+    graph = graph * total_chars
+    graph = round(graph)
+    bar=""
+    space=""
+    p = 0
+    i = 0
+    end = total_chars - graph
+    
+    while p != graph:
+        bar = bar + "#"
+        p = p + 1
+    finish = "["+ bar
+    
+    while i != end:
+        space = space + " "
+        i = i + 1
+    finish = finish + space + "]"    
+    
+    return finish
 
 def call_du_sub(location):
     "use subprocess to call `du -d 1 + location`, rtrn raw list"
