@@ -69,7 +69,11 @@ def call_du_sub(location):
 
 def create_dir_dict(raw_dat):
     "get list from du_sub, return dict {'directory': 0} where 0 is size"
-    pass
+    valueslist = [i.split('\t')[0] for i in raw_dat]
+    valuesint = [int(i) for i in valueslist]
+    keys = [i.split('\t')[1] for i in raw_dat]
+    outputDict = dict(zip(keys, valuesint))
+    return outputDict
 
 
 if __name__ == "__main__":
