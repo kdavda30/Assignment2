@@ -63,9 +63,7 @@ def call_du_sub(location):
     stdout = output[0].decode('utf-8').strip()
     outputlist = list(stdout)
 
-    return outputlist
-
-   
+    return outputlist    
 
 def create_dir_dict(raw_dat):
     "get list from du_sub, return dict {'directory': 0} where 0 is size"
@@ -75,6 +73,45 @@ def create_dir_dict(raw_dat):
     outputDict = dict(zip(keys, valuesint))
     return outputDict
 
+def get_total_size(dir_dict_list):
+    return sum(dir_dict.values())
+
+def get_unit(n):
+    factor = 1000 
+    if n < factor:
+        return 'B'
+    elif factor <= n < factor ** 2:
+        return 'KiB'
+    elif factor**2 <= n < factor**3:
+        return 'MiB'
+    elif factor**3 <= n < factor**4:
+        return 'GiB'
+    else:
+        return 'TiB'
+
+def auto_scale_n(n):
+    factor = 1000 
+    scaled = n
+    while scaled > factor:
+        scaled /= factor
+    return scaled
 
 if __name__ == "__main__":
-    pass
+    args = sys.argv
+    if len(args) == 0:
+        directory = "."
+    elif len(args) > 1 or not os.path.isdir(args[0]):
+        print("ERROR: Invalid number of arguments or path is not valid.")
+        exit(0)
+    else:
+        directory = args[0]     
+    dir_dict = ceate_dir_dict(du_sub(directory))
+    total_size = get_total_size(dir_dict)
+    graph_max_size = 20
+    for subdir, size in dir_dict.items():
+        percentage = int(size / total_size * 100)
+        graph = percent_to_graph(percentage, graph_max_size)
+        print("{:>2} % [{}] {:0.1f} {:<5}\t{}".format(percentage, graph, auto_scale_n(size),get_unit(size) , subdir))
+        print("Total: {:0.1f} {}\t\t\t{}".format(auto_scale_n(total_size), get_unit(total_size), directory))
+
+
